@@ -20,15 +20,22 @@ fruits_selected = st.multiselect("Pick some fruits:", list(my_fruit_list.index))
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 st.dataframe(fruits_to_show)
 
-st.header('Fruity Vice Fruity Advice!')
+st.header('Fruity Vice, Fruity Nice!')
+def get_fruityvice_data(this_fruit_choice):
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+  
+st.header('Fruityvice Fruit Advice!')
 try:
   fruit_choice = st.text_input('What fruit would you like information about?')
   if not fruit_choice:
     st.error("Please choose a pre-existing fruit to get information.")
   else:
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-    st.dataframe(fruityvice_normalized)
+    back_from_function = get_fruityvice_data(fruit_choice)
+    st.dataframe(back_from_function)
+    
+   
 except URLError as e:
   st.error()
     
