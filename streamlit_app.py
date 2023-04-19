@@ -37,9 +37,6 @@ try:
    
 except URLError as e:
   st.error()
-    
-    
-st.stop()
 
 # Start of Snowflake
 def get_fruit_load_list():
