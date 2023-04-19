@@ -64,4 +64,8 @@ if st.button('Add a Fruit to the List'):
     back_from_function = insert_row_snowflake(add_my_fruit)
     st.text(back_from_function)
     
-
+if st.button('Get Fruit List'):
+    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    my_cnx.close()
+    st.dataframe(my_data_rows)
